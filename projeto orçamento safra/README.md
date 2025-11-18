@@ -1,203 +1,175 @@
-# 🌾 Sistema ERP Agrícola - Agroinvest
+# 🌾 ERP Agrícola - Agroinvest
 
 ## 📋 Visão Geral
 
-Transformação digital do sistema de gestão orçamentária da **Agroinvest Ltda** - empresa agrícola que opera 2.280 hectares (900 ha soja + 1.380 ha milho) com faturamento estimado de R$ 23 milhões anuais.
+Plano estruturado para transformação digital da **Agroinvest Ltda** - substituindo planilha Excel complexa por sistema ERP moderno.
 
-### Problema Atual
-- Planilha Excel complexa com 18 abas interconectadas
-- 2.289 fórmulas desprotegidas e 523 células mescladas
-- Risco operacional e sem controle de versão
-- Processos manuais e vulneráveis
-
-### Solução Proposta
-Sistema ERP completo com **ROI estimado de 359% em 3 anos** e **payback de 7,8 meses**.
-
----
-
-## 🚀 Arquitetura do Projeto
-
-### Stack Tecnológico
-- **Backend:** Node.js + TypeScript + Express
-- **Frontend:** Next.js 14 + React + TailwindCSS
-- **Banco de Dados:** PostgreSQL + Prisma ORM
-- **Infraestrutura:** Docker + GitHub Actions
-- **Mobile:** PWA (Progressive Web App)
-
-### Estrutura do Monorepo
-```
-├── backend/          # API RESTful
-├── frontend/         # Interface web
-├── shared/          # Tipos e utilitários comuns
-├── docs/            # Documentação
-├── docker/          # Configurações Docker
-└── plan.yaml        # Plano de desenvolvimento detalhado
-```
-
----
-
-## 📊 Plano de Desenvolvimento
-
-### Status Atual: **Planning Phase** ✅
-- [x] Análise completa dos dados existentes
-- [x] Extração e validação de 18 abas da planilha
-- [x] Identificação de oportunidades de negócio
-- [x] Definição de arquitetura e tecnologia
-- [x] Plano detalhado em checkpoints sequenciais
-
-### Roadmap Estimado: **8 semanas para MVP**
-
-#### Fase 1: Fundação (Semanas 1-2)
-- Setup do projeto e configurações
-- Schema de banco de dados
-- API base com autenticação
-
-#### Fase 2: Core Features (Semanas 3-5)
-- Interface principal (dashboard)
-- Migração de dados da planilha
-- Módulo de orçamento vs realizado
-
-#### Fase 3: Business Modules (Semanas 6-8)
-- Gestão de insumos
-- Recursos humanos
-- Manutenção de equipamentos
-
----
-
-## 💡 Insights de Negócio
-
-### Métricas da Operação
-- **Área Total:** 2.280 hectares cultivados
-- **Equipe:** 20+ funcionários permanentes
-- **Ativos:** R$ 12,3 milhões em maquinário
-- **Margem Estimada:** 64% (excelente para setor)
-
-### Centros de Custo Principais
-1. **Insumos Químicos:** R$ 6,27M (65% do orçamento)
-2. **Folha de Pagamento:** R$ 1,11M anual
-3. **Depreciação:** R$ 514K/ano
-4. **Combustíveis:** ~R$ 150K/ano
-
-### Oportunidades Identificadas
-- **15.000 ha** em aplicação química (prestação de serviços)
-- **Expansão de soja** 151% (358 ha → 900 ha)
-- **Eficiência operacional** via digitalização
-- **Sustentabilidade** com energia solar e irrigação
-
----
-
-## 🎯 Objetivos do Sistema
-
-### Imediatos (MVP)
-- ✅ Substituir planilha Excel por sistema digital
-- ✅ Controle orçamento vs realizado em tempo real
-- ✅ Automação de relatórios e dashboards
-- ✅ Segurança e backup de dados
-
-### Estratégicos
-- 🎯 Agricultura de precisão com rastreamento talhão
-- 🎯 Integração IoT (sensores, GPS)
-- 🎯 BI preditivo para otimização de custos
-- 🎯 Escalabilidade para outras fazendas
-
----
-
-## 📁 Documentação
-
-### Plano Detalhado
-- **`docs/plan.yaml`** - Plano completo com checkpoints sequenciais
-- **23 checkpoints** definidos e priorizados
-- **240 horas** estimadas de desenvolvimento
-- **Dependencies** mapeadas para execução incremental
-
-### Análise de Dados
-- Extração completa de 18 abas (29.328 células)
-- Identificação de 20 funcionários e estruturas salariais
-- Mapeamento de frotas e equipamentos
-- Análise de custos e margens por cultura
-
----
-
-## 🛠️ Como Usar
-
-### Para Desenvolvedores
-
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/Carroll-Brasil/orcamentosafra.git
-   cd orcamentosafra
-   ```
-
-2. **Siga o plano de desenvolvimento:**
-   ```bash
-   # Verificar plano detalhado
-   cat docs/plan.yaml
-
-   # Executar checkpoint 001 (Setup do projeto)
-   # Verificar acceptance criteria no plan.yaml
-   ```
-
-3. **Setup do ambiente:**
-   ```bash
-   # Instalar dependências
-   npm install
-
-   # Iniciar ambiente de desenvolvimento
-   docker-compose up -d
-   npm run dev
-   ```
-
-### Para Stakeholders
-
-1. **Revisar plano completo:** `docs/plan.yaml`
-2. **Acompanhar progresso:** Verificar checkpoints concluídos
-3. **Validar features:** Testar acceptance criteria de cada módulo
-4. **Feedback:** Contribuir com ajustes nos requisitos
-
----
-
-## 📈 ROI e Benefícios Esperados
-
-### Retorno Financeiro
+### 🎯 O Projeto
+- **Status:** Planejamento Estruturado ✅
+- **Timeline:** 8 semanas para MVP
 - **Investimento:** R$ 490K em 18 meses
-- **Economia Anual:** R$ 750K
+- **ROI:** 359% em 3 anos
 - **Payback:** 7,8 meses
-- **ROI 3 anos:** 359%
 
-### Benefícios Operacionais
-- ⚡ **Decisões baseadas em dados** em tempo real
-- 🛡️ **Segurança** dos dados orçamentários
-- 📱 **Acesso mobile** para equipe de campo
-- 📊 **Automatização** de relatórios e análises
-- 🔄 **Escalabilidade** para crescimento futuro
+### 📊 Operação Atual
+- **Área:** 2.280 hectares (900 soja + 1.380 milho)
+- **Equipe:** 20+ funcionários
+- **Faturamento:** ~R$ 23 milhões anuais
+- **Dados:** 18 abas Excel (29.328 células)
 
 ---
 
-## 🤝 Como Contribuir
+## 📁 Estrutura do Repositório
 
-### Processo de Desenvolvimento
-1. **Fazer fork** do repositório
-2. **Criar branch** para feature específica
-3. **Executar checkpoint** conforme plan.yaml
-4. **Validar acceptance criteria**
-5. **Submeter pull request** com descrição
-
-### Orquestração Autônoma
-O plano YAML foi desenhado para ser executado por sistemas autônomos:
-- **Checkpoints sequenciais** com dependências claras
-- **Acceptance criteria** mensuráveis
-- **Estimativas realistas** de tempo
-- **Qualidade garantida** via validações
+```
+📦orcamentosafra/
+├── 📋 plan.yaml           # Plano detalhado de desenvolvimento
+├── 📄 CONTEXT.md           # Contexto completo do negócio
+├── 📄 README.md            # Este arquivo
+└── 📁 docs/               # Documentação técnica
+```
 
 ---
 
-## 📞 Contato e Informações
+## 🚀 Plano de Desenvolvimento
+
+### 📋 Documentação Principal
+- **`plan.yaml`** - 23 checkpoints sequenciais com acceptance criteria
+- **`CONTEXT.md`** - Análise completa do negócio e oportunidades
+
+### 🎪 Fases de Implementação
+1. **Fundação** (Semanas 1-2): Setup técnico
+2. **Core Features** (Semanas 3-5): Dashboard + API
+3. **Business Modules** (Semanas 6-8): RH, insumos, equipamentos
+4. **Scale** (Mês 3+): Mobile + analytics
+
+### 📋 Checkpoints Principais
+```yaml
+001-setup-projeto          # Estrutura base monorepo
+002-banco-dados-schema     # PostgreSQL + migrations
+003-api-base              # REST API + autenticação
+004-frontend-base          # Next.js + React
+005-migracao-dados        # Importação planilha Excel
+006-dashboard-orcamento   # Dashboard principal
+# ... mais 17 checkpoints
+```
+
+---
+
+## 💡 Por Que Este Projeto?
+
+### 🚨 Problemas Atuais
+- **523 células mescladas** - Alta complexidade
+- **2.289 fórmulas desprotegidas** - Risco de erros
+- **Sem backup automático** - Vulnerabilidade
+- **Processos manuais** - Ineficiência
+
+### ✅ Solução Proposta
+- **Sistema digital robusto** com autenticação e backup
+- **Dashboard em tempo real** para tomada de decisão
+- **Acesso mobile** para equipe de campo
+- **Escalabilidade** para crescimento futuro
+
+### 💰 Retorno Financeiro
+```
+Economia Anual: R$ 750.000
+Investimento:    R$ 490.000
+Payback:          7,8 meses
+ROI 3 anos:       359%
+```
+
+---
+
+## 🎛️ Stack Tecnológico
+
+```
+Frontend:  Next.js 14 + TypeScript + TailwindCSS
+Backend:   Node.js + Express + TypeScript
+Database:  PostgreSQL + Prisma ORM
+Infra:     Docker + GitHub Actions
+Mobile:    PWA (Progressive Web App)
+```
+
+---
+
+## 🏗️ Como Usar Este Plano
+
+### 🤖 Para Orquestradores Autônomos
+```bash
+# 1. Ler plano detalhado
+cat docs/plan.yaml
+
+# 2. Executar checkpoints sequencialmente
+# Validar acceptance criteria antes de prosseguir
+# Respeitar dependências entre checkpoints
+```
+
+### 👨‍💻 Para Desenvolvedores
+```bash
+# 1. Clonar repositório
+git clone https://github.com/Carroll-Brasil/orcamentosafra.git
+
+# 2. Seguir plan.yaml em ordem
+# Cada checkpoint tem acceptance criteria claros
+# Estimativas de horas já definidas
+```
+
+### 👔 Para Stakeholders
+1. **Revisar:** `CONTEXT.md` para visão de negócio
+2. **Acompanhar:** Progresso dos checkpoints
+3. **Validar:** Features contra acceptance criteria
+4. **Aprovar:** Mudanças de escopo quando necessário
+
+---
+
+## 📈 Métricas de Sucesso
+
+### 🎯 Negócio
+- **100% adoção** da equipe
+- **<1% erro** vs planilha
+- **50% redução** tempo manual
+- **ROI 359%** em 3 anos
+
+### ⚙️ Técnica
+- **<2s** loading time
+- **99.9%** uptime
+- **>80%** test coverage
+- **Zero** vulnerabilidades críticas
+
+---
+
+## 🎪 Impacto Esperado
+
+### Transformação Completa
+```
+ANTES:
+❌ Planilha Excel complexa
+❌ Processos manuais
+❌ Risco operacional
+❌ Sem escalabilidade
+
+DEPOIS:
+✅ Sistema digital robusto
+✅ Processos automatizados
+✅ Segurança e backup
+✅ Escalável e moderno
+```
+
+### 🌱 Benefícios Estratégicos
+- **Referência digital** no setor agrícola
+- **Escalável** para outras operações
+- **Sustentável** com otimização de recursos
+- **Inovador** com tecnologia moderna
+
+---
+
+## 📞 Informações
 
 - **Repositório:** https://github.com/Carroll-Brasil/orcamentosafra
-- **Documentação:** `docs/plan.yaml`
-- **Status:** Em planejamento → Pronto para desenvolvimento
-- **Timeline:** 8 semanas para MVP funcional
+- **Plano Principal:** `docs/plan.yaml`
+- **Contexto Negócio:** `CONTEXT.md`
+- **Status:** Pronto para desenvolvimento
 
 ---
 
-*Este projeto representa a transformação digital de uma operação agrícola tradicional em referência de gestão baseada em dados. 🌱*
+*Este plano representa a transformação digital completa de uma operação agrícola tradicional em um negócio moderno, eficiente e escalável.* 🚀

@@ -1,0 +1,566 @@
+# METADADOS DO PROJETO
+project:
+  name: "Sistema ERP Agrícola - Agroinvest"
+  description: "Transformação digital da gestão orçamentária agrícola substituindo planilha Excel complexa"
+  current_status: "planning"
+  target_status: "mvp"
+  priority: "alta"
+  estimated_hours: 240
+
+# PREMISSAS E CONTEXTOS
+assumptions:
+  - "Node.js 18+ como runtime principal do backend"
+  - "React/Next.js para frontend web"
+  - "PostgreSQL como banco de dados principal"
+  - "Docker para containerização e deploy"
+  - "Prazo de 8 semanas para MVP funcional"
+  - "Equipe de desenvolvimento disponível 40h/semana"
+  - "Dados migrados da planilha Excel existente (18 abas, 29.328 células)"
+  - "Focus inicial em orçamento vs realizado"
+  - "Dispositivos mobile para acesso em campo"
+
+# LISTA DE CHECKPOINTS (ORDENADA POR DEPENDÊNCIA)
+checkpoints:
+  - id: "001-setup-projeto"
+    title: "Configurar Estrutura Base do Projeto"
+    description: "Setup inicial do monorepo com configurações de desenvolvimento"
+    acceptance_criteria:
+      - "Monorepo configurado com backend e frontend separados"
+      - "TypeScript configurado em ambos projetos"
+      - "ESLint, Prettier e Husky configurados globalmente"
+      - "Docker e docker-compose para ambiente de desenvolvimento"
+      - "CI/CD básico configurado com GitHub Actions"
+    est_hours: 16
+    priority: "alta"
+    dependencies: []
+    body: |
+      Criar estrutura inicial completa do projeto:
+
+      1. **Estrutura de Monorepo:**
+         - Criar workspace com:
+           ```
+           backend/ - API Node.js + Express
+           frontend/ - React/Next.js
+           shared/ - Tipos e utilitários comuns
+           docs/ - Documentação e planos
+           docker/ - Configurações Docker
+           ```
+
+      2. **Configuração Backend:**
+         - package.json com dependências principais
+         - TypeScript configurado strict
+         - Estrutura: src/, tests/, docs/
+         - Scripts: dev, build, test, lint
+
+      3. **Configuração Frontend:**
+         - Next.js 14 com TypeScript
+         - TailwindCSS para estilização
+         - Estrutura de componentes: components/, pages/, hooks/
+
+      4. **Desenvolvimento:**
+         - docker-compose.yml com PostgreSQL, Redis
+         - Dockerfile para backend e frontend
+         - Variáveis de ambiente (.env.example)
+
+      5. **Qualidade:**
+         - ESLint + Prettier em ambos projetos
+         - Husky para pre-commit hooks
+         - Jest para testes unitários
+         - GitHub Actions para CI/CD básico
+
+  - id: "002-banco-dados-schema"
+    title: "Implementar Schema de Banco de Dados"
+    description: "Criar estrutura de dados baseada na análise da planilha Agroinvest"
+    acceptance_criteria:
+      - "Banco PostgreSQL com schema completo implementado"
+      - "Migrations com Knex.js ou Prisma Migrate"
+      - "Seed data com dados reais da Agroinvest"
+      - "Relacionamentos e índices otimizados"
+      - "Documentação do schema gerada automaticamente"
+    est_hours: 24
+    priority: "alta"
+    dependencies: ["001-setup-projeto"]
+    body: |
+      Implementar modelo de dados baseado na análise da planilha:
+
+      1. **Entidades Principais:**
+         - **Users** (funcionários): id, name, email, role, salary, department
+         - **Crops** (culturas): id, name, variety, area_hectares, planting_date
+         - **Farms** (fazendas/talhões): id, name, area, location, coordinates
+         - **Equipment** (equipamentos): id, name, type, brand, model, cost_center
+         - **Suppliers** (fornecedores): id, name, cnpj, contact, category
+         - **Products** (insumos): id, name, category, unit, cost, supplier_id
+
+      2. **Orçamento e Financeiro:**
+         - **Budgets** (orçamentos): id, year, crop_id, category, planned_amount
+         - **Actuals** (realizados): id, budget_id, actual_amount, date, description
+         - **CostCenters** (centros de custo): id, name, department, responsible_id
+         - **Transactions** (transações): id, cost_center_id, amount, type, date
+
+      3. **Operações:**
+         - **Operations** (operações): id, type, crop_id, equipment_id, date, duration
+         - **Applications** (aplicações): id, operation_id, product_id, quantity, area
+         - **Maintenance** (manutenção): id, equipment_id, cost, date, description
+
+      4. **Configuração:**
+         - Usar Prisma como ORM
+         - Configurar migrations versionadas
+         - Criar seeds com dados reais da extração
+         - Índices para performance (campos frequentemente consultados)
+         - Constraints para integridade referencial
+
+  - id: "003-api-base"
+    title: "Implementar API REST Base"
+    description: "Criar servidor web com autenticação e endpoints básicos"
+    acceptance_criteria:
+      - "Servidor Express configurado com TypeScript"
+      - "Sistema de autenticação JWT implementado"
+      - "Endpoints CRUD para entidades principais"
+      - "Middleware de logging, CORS e tratamento de erros"
+      - "Documentação API com Swagger/OpenAPI"
+      - "Testes unitários com >80% cobertura"
+    est_hours: 32
+    priority: "alta"
+    dependencies: ["001-setup-projeto", "002-banco-dados-schema"]
+    body: |
+      Implementar API RESTful completa:
+
+      1. **Configuração Base:**
+         - Express.js com TypeScript
+         - Helmet, CORS, compression
+         - Morgan para logging
+         - Rate limiting com express-rate-limit
+         - Tratamento centralizado de erros
+
+      2. **Autenticação:**
+         - JWT para stateless authentication
+         - Password hashing com bcrypt
+         - Middleware de autenticação por rota
+         - Roles e permissões (admin, manager, user)
+         - Refresh tokens implementados
+
+      3. **Endpoints Principais:**
+         - **Auth:** POST /auth/login, POST /auth/register, POST /auth/refresh
+         - **Users:** GET /users, GET /users/:id, PUT /users/:id, DELETE /users/:id
+         - **Crops:** CRUD completo com filtros
+         - **Budgets:** CRUD com validações de negócio
+         - **Equipment:** CRUD com histórico de manutenção
+         - **Reports:** GET /reports/budget-actual, GET /reports/cost-analysis
+
+      4. **Validação:**
+         - Input validation com Joi ou Zod
+         - Sanitização de dados
+         - Rate limiting por usuário
+         - Logging de acessos e erros
+
+      5. **Testes:**
+         - Unit tests para controllers e services
+         - Integration tests com supertest
+         - Coverage >80% em code paths críticos
+         - Mocks para dependências externas
+
+  - id: "004-frontend-base"
+    title: "Criar Interface Base com React/Next.js"
+    description: "Desenvolver frontend com sistema de autenticação e navegação"
+    acceptance_criteria:
+      - "Aplicação Next.js renderizando corretamente"
+      - "Sistema de autenticação integrado com API"
+      - "Layout responsivo com header, sidebar e footer"
+      - "Roteamento protegido por roles de usuário"
+      - "Dashboard principal com métricas básicas"
+      - "Componentes reutilizáveis implementados"
+    est_hours: 40
+    priority: "alta"
+    dependencies: ["001-setup-projeto", "003-api-base"]
+    body: |
+      Desenvolver frontend moderno e responsivo:
+
+      1. **Setup Next.js 14:**
+         - App Router (não Pages Router)
+         - TypeScript strict mode
+         - TailwindCSS com configuração customizada
+         - Configuração de environment variables
+
+      2. **Autenticação:**
+         - Context API para estado de autenticação
+         - Login/logout com tokens JWT
+         - Middleware para rotas protegidas
+         - Layouts diferentes por role (admin vs user)
+         - Refresh automático de tokens
+
+      3. **Layout e Navegação:**
+         - Componente Header com logout e menu usuário
+         - Sidebar com navegação por módulo
+         - Breadcrumbs para navegação
+         - Footer com informações do sistema
+         - Design responsivo mobile-first
+
+      4. **Páginas Principais:**
+         - /login - Página de autenticação
+         - /dashboard - Overview com cards e gráficos
+         - /orcamento - Gestão de orçamentos
+         - /realizado - Lançamento de custos
+         - /relatorios - Visualização de relatórios
+         - /configuracoes - Administração do sistema
+
+      5. **Componentes Base:**
+         - Button, Input, Select, DatePicker
+         - Table com paginação e filtros
+         - Modal para forms e confirmações
+         - Card components para metrics
+         - Charts com recharts ou chart.js
+
+  - id: "005-migracao-dados"
+    title: "Implementar Migração de Dados da Planilha"
+    description: "Criar sistema de importação dos dados extraídos da planilha Excel"
+    acceptance_criteria:
+      - "CSV parser implementado e testado"
+      - "Dados das 18 abas importados corretamente"
+      - "Validação e limpeza de dados durante importação"
+      - "Relatório de inconsistências gerado"
+      - "Rollback implementado em caso de erros"
+      - "Performance: importar < 30 segundos"
+    est_hours: 24
+    priority: "alta"
+    dependencies: ["002-banco-dados-schema", "003-api-base"]
+    body: |
+      Criar sistema robusto de migração de dados:
+
+      1. **CSV Parser:**
+         - Ler todos os 18 arquivos CSV gerados
+         - Detectar encoding automaticamente (UTF-8, ISO-8859-1)
+         - Parse robusto com tratamento de erros
+         - Streaming para arquivos grandes
+
+      2. **Mapeamento de Dados:**
+         - Mapear colunas da planilha para entidades do banco
+         - Tratar nomes de colunas inconsistentes
+         - Normalizar unidades (ha, kg, L, R$, USD)
+         - Converter tipos de dados automaticamente
+
+      3. **Validação:**
+         - Validar formatos de datas
+         - Checar integridade referencial
+         - Detectar duplicatas e inconsistências
+         - Gerar relatório detalhado de erros
+
+      4. **Importação:**
+         - Transactions para rollback automático
+         - Batch inserts para performance
+         - Progress tracking durante importação
+         - Logs detalhados de operações
+
+      5. **API de Importação:**
+         - POST /api/import/upload para upload de arquivos
+         - GET /api/import/status para tracking
+         - GET /api/import/logs para detalhes
+         - DELETE /api/import/reset para rollback
+
+      6. **Testes:**
+         - Testar com dados reais da Agroinvest
+         - Simular cenários de erro
+         - Validar performance com arquivos grandes
+
+  - id: "006-dashboard-orcamento"
+    title: "Implementar Dashboard de Orçamento vs Realizado"
+    description: "Criar interface principal de gestão orçamentária"
+    acceptance_criteria:
+      - "Cards com métricas principais (total orçado, realizado, variação)"
+      - "Gráficos interativos de linha e barra para evolução temporal"
+      - "Tabela detalhada com drill-down por categoria"
+      - "Filtros por período, cultura, centro de custo"
+      - "Exportação para PDF e Excel"
+      - "Responsivo e otimizado para mobile"
+    est_hours: 32
+    priority: "alta"
+    dependencies: ["004-frontend-base", "005-migracao-dados"]
+    body: |
+      Desenvolver dashboard executivo completo:
+
+      1. **Métricas Principais:**
+         - Total orçado vs realizado (cards grandes)
+         - Percentual de execução orçamentária
+         - Variação em valor e percentual
+         - Status por semáforo (verde/amarelo/vermelho)
+         - Comparação com safra anterior
+
+      2. **Visualizações:**
+         - **Gráfico de Linhas:** Evolução mensal acumulada
+         - **Gráfico de Barras:** Comparativo por categoria
+         - **Pie Chart:** Distribuição por centro de custo
+         - **Heatmap:** Variação percentual por categoria/mês
+         - **Tabela:** Detalhamento com drill-down capabilities
+
+      3. **Filtros e Controles:**
+         - Período dinâmico (mês, trimestre, safra)
+         - Seleção de culturas (Soja, Milho)
+         - Filtrar por centro de custo
+         - Busca por descrição ou fornecedor
+         - Reset de filtros com um clique
+
+      4. **Interações:**
+         - Click em gráfico para detalhamento
+         - Hover tooltips com informações adicionais
+         - Comparação side-by-side de períodos
+         - Exportação dos dados filtrados
+
+      5. **Performance:**
+         - Lazy loading para datasets grandes
+         - Caching inteligente de queries
+         - Virtual scrolling para tabelas grandes
+         - Responsive design adaptativo
+
+  - id: "007-gestao-insumos"
+    title: "Implementar Módulo de Gestão de Insumos"
+    description: "Criar sistema completo para controle de sementes, fertilizantes e defensivos"
+    acceptance_criteria:
+      - "CRUD completo para produtos e fornecedores"
+      - "Controle de estoque com entradas e saídas"
+      - "Rastreamento lote-talhão-aplicação"
+      - "Cálculo automático de custo/ha"
+      - "Alertas de estoque mínimo"
+      - "Relatórios de consumo por cultura"
+    est_hours: 32
+    priority: "media"
+    dependencies: ["004-frontend-base", "005-migracao-dados"]
+    body: |
+      Desenvolver módulo de gestão de insumos agrícolas:
+
+      1. **Cadastro de Produtos:**
+         - Formulário completo para produtos
+         - Categoria (sementes, fertilizantes, defensivos)
+         - Unidade de medida (kg, L, unidade)
+         - Fornecedor associado
+         - Custo atual e histórico
+         - Dados técnicos (dose recomendada, cultura)
+
+      2. **Controle de Estoque:**
+         - Entradas: notas fiscais, compras, devoluções
+         - Saídas: aplicação em talhão, perdas, transferências
+         - Saldo em tempo real
+         - Validação de saída maior que estoque
+         - Lote e validade para tracking
+
+      3. **Aplicações por Talhão:**
+         - Seletor de talhão/cultura
+         - Produto, quantidade, data de aplicação
+         - Condições (clima, equipamento, operador)
+         - Cálculo automático de custo/ha
+         - Histórico completo por talhão
+
+      4. **Alertas e Relatórios:**
+         - Estoque mínimo configurável
+         - Vencimento próximos
+         - Consumo médio por safra
+         - Custo comparativo entre fornecedores
+         - Relatório de aplicações por período
+
+      5. **Interface Mobile:**
+         - Registro rápido de aplicações em campo
+         - Leitura de código de barras (opcional)
+         - Offline sync para áreas sem internet
+
+  - id: "008-recursos-humanos"
+    title: "Implementar Módulo de Recursos Humanos"
+    description: "Criar sistema de gestão de funcionários, folha e controle de ponto"
+    acceptance_criteria:
+      - "Cadastro completo de funcionários com dados contratuais"
+      - "Cálculo automático de folha de pagamento"
+      - "Controle de ponto manual (inicialmente)"
+      - "Gestão de férias e ausências"
+      - "Relatórios de custo por funcionário/departamento"
+      - "Histórico salarial e promoções"
+    est_hours: 40
+    priority: "media"
+    dependencies: ["004-frontend-base", "005-migracao-dados"]
+    body: |
+      Desenvolver módulo completo de RH:
+
+      1. **Cadastro de Funcionários:**
+         - Dados pessoais e contratuais
+         - Departamento e cargo
+         - Salário base e adicionais
+         - Data admissão e tipo contrato
+         - Benefícios (VT, VR, plano saúde)
+         - Contato de emergência
+
+      2. **Folha de Pagamento:**
+         - Cálculo automático mensal
+         - Encargos sociais (INSS, FGTS, etc.)
+         - Adicionais (insalubridade, periculosidade)
+         - Descontos (adiantamentos, faltas)
+         - Gerador de holerites
+         - Integração contábil futura
+
+      3. **Controle de Ponto:**
+         - Registro manual inicialmente
+         - Cálculo de horas extras
+         - Banco de horas
+         - Abonos e justificativas
+         - Relatório de frequência mensal
+
+      4. **Gestão de Férias:**
+         - Solicitação e aprovação
+         - Cálculo de dias disponíveis
+         - Escala de férias por departamento
+         - Bloqueio de períodos críticos
+         - Histórico completo
+
+      5. **Relatórios:**
+         - Custo mensal por departamento
+         - Análise de turnover
+         - Produtividade por funcionário
+         - Comparativo orçado vs realizado
+
+  - id: "009-manutencao-equipamentos"
+    title: "Implementar Módulo de Manutenção de Equipamentos"
+    description: "Criar sistema para gestão de frota e manutenção de máquinas"
+    acceptance_criteria:
+      - "Cadastro completo de equipamentos e veículos"
+      - "Controle de manutenções preventivas e corretivas"
+      - "Histórico de custos e peças"
+      - "Agendamento automático de preventivas"
+      - "Controle de consumo de combustível"
+      - "Relatórios de disponibilidade e custos"
+    est_hours: 32
+    priority: "media"
+    dependencies: ["004-frontend-base", "005-migracao-dados"]
+    body: |
+      Desenvolver módulo de gestão de ativos:
+
+      1. **Cadastro de Equipamentos:**
+         - Tipo (trator, colheitadeira, veículo)
+         - Marca, modelo, ano, placa
+         - Número de série e patrimônio
+         - Hodômetro/horas de uso
+         - Centro de custo responsável
+         - Manual e documentos anexados
+
+      2. **Manutenção Preventiva:**
+         - Planos por tipo de equipamento
+         - Agendamento por horas/km
+         - Ordens de serviço automáticas
+         - Checklists de inspeção
+         - Históculo completo de serviços
+
+      3. **Manutenção Corretiva:**
+         - Registro de quebras e defeitos
+         - Ordem de serviço com peças
+         - Controle de tempo de parada
+         - Custo total (peças + mão de obra)
+         - Análise de falhas recorrentes
+
+      4. **Controle de Combustível:**
+         - Abastecimentos registrados
+         - Consumo por hora/km
+         - Comparativo por equipamento
+         - Alertas de consumo anormal
+         - Integração com sistema de posto
+
+      5. **Relatórios e Indicadores:**
+         - Disponibilidade operacional
+         - Custo de manutenção/hora
+         - MTBF (Mean Time Between Failures)
+         - Análise de custos por equipamento
+
+  - id: "010-mobilidade-app"
+    title: "Desenvolver Aplicativo Mobile PWA"
+    description: "Criar aplicativo mobile para acesso em campo e registros rápidos"
+    acceptance_criteria:
+      - "PWA instalável em smartphones"
+      - "Acesso offline às funcionalidades críticas"
+      - "Interface otimizada para telas pequenas"
+      - "Sincronização automática quando online"
+      - "Notificações push para alertas"
+      - "Câmera integrada para fotos de documentos"
+    est_hours: 40
+    priority: "baixa"
+    dependencies: ["006-dashboard-orcamento"]
+    body: |
+      Desenvolver Progressive Web App mobile-first:
+
+      1. **PWA Configuration:**
+         - Service Worker para caching
+         - Web App Manifest
+         - Offline-first architecture
+         - Push notifications setup
+         - Install prompts
+
+      2. **Funcionalidades Offline:**
+         - Consulta de informações básicas
+         - Registro de aplicações em campo
+         - Fotos de documentos/relatórios
+         - Sincronização batch quando online
+         - Cache inteligente de dados
+
+      3. **Interface Mobile:**
+         - Bottom navigation bar
+         - Swipe gestures para navegação
+         - Cards otimizados para touch
+         - Forms simplificados
+         - Camera integration
+
+      4. **Módulos Principais Mobile:**
+         - Aplicações rápidas de insumos
+         - Registro de manutenção
+         - Consulta de informações culturais
+         - Fotos de campo com geolocalização
+         - Assinatura digital em formulários
+
+      5. **Sincronização:**
+         - Queue system para operações offline
+         - Conflict resolution
+         - Progress indicators
+         - Retry automático em falhas
+         - Background sync
+
+  - id: "011-relatorios-avancados"
+    title: "Implementar Sistema de Relatórios Avançados"
+    description: "Criar gerador de relatórios personalizados e analytics avançados"
+    acceptance_criteria:
+      - "Construtor de relatórios drag-and-drop"
+      - "Templates pré-definidos (custos, produtividade, etc)"
+      - "Exportação para PDF, Excel e CSV"
+      - "Agendamento automático de relatórios"
+      - "Drill-down interativo nos dados"
+      - "Comparação entre safras e períodos"
+    est_hours: 32
+    priority: "baixa"
+    dependencies: ["006-dashboard-orcamento"]
+    body: |
+      Desenvolver sistema completo de Business Intelligence:
+
+      1. **Report Builder:**
+         - Interface drag-and-drop
+         - DataSource configurável
+         - Tipos de gráficos variados
+         - Filtros e parâmetros dinâmicos
+         - Preview em tempo real
+
+      2. **Templates Pré-definidos:**
+         - Análise de custos por safra
+         - Produtividade por talhão
+         - Relatório de insumos aplicados
+         - Análise de rentabilidade
+         - Dashboard executivo
+
+      3. **Data Visualization:**
+         - Gráficos interativos (D3.js ou similar)
+         - Drill-down capabilities
+         - Cross-filtering entre visualizações
+         - Annotations e tooltips
+         - Export high-resolution
+
+      4. **Agendamento e Distribuição:**
+         - Agendar execução automática
+         - Enviar por email automaticamente
+         - Parâmetros dinâmicos (período, usuário)
+         - Histórico de execuções
+         - Cache inteligente
+
+      5. **Performance:**
+         - Query optimization
+         - Data warehouse views
+         - Materialized views para queries complexas
+         - Background processing
+         - Progressive loading
