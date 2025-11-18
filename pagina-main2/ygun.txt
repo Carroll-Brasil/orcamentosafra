@@ -1,0 +1,108 @@
+Microsoft Windows [versão 10.0.26100.4946]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\miguel\Desktop\pagina-main2>npm i
+
+added 412 packages, and audited 413 packages in 44s
+
+141 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\Users\miguel\Desktop\pagina-main2>npm run dev
+
+> mollusk-site@0.1.0 dev
+> next dev
+
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\miguel\bun.lock as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles:
+   * C:\Users\miguel\Desktop\pagina-main2\package-lock.json
+
+   ▲ Next.js 15.5.2
+   - Local:        http://localhost:3000
+   - Network:      http://26.231.53.110:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ○ Compiling / ...
+ ⨯ ./node_modules/@react-three/fiber/dist/events-e3cb66e2.esm.js:1236:1
+Module not found: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: Unexpected token '﻿', "﻿{
+  "name"... is not valid JSON
+  1234 |   const reconciler = Reconciler(config);
+  1235 |   reconciler.injectIntoDevTools({
+> 1236 |     bundleType: typeof process !== 'undefined' && process.env.NODE_ENV !== 'production' ? 1 : 0,
+       | ^
+  1237 |     rendererPackageName: '@react-three/fiber',
+  1238 |     version: React.version
+  1239 |   });
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/@react-three/fiber/dist/react-three-fiber.esm.js
+./components/ui/shader-background.tsx
+./app/page.tsx
+ ⨯ ./node_modules/@react-three/fiber/dist/events-e3cb66e2.esm.js:1236:1
+Module not found: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: C:\Users\miguel\package.json (directory description file): SyntaxError: Unexpected token '﻿', "﻿{
+  "name"... is not valid JSON
+  1234 |   const reconciler = Reconciler(config);
+  1235 |   reconciler.injectIntoDevTools({
+> 1236 |     bundleType: typeof process !== 'undefined' && process.env.NODE_ENV !== 'production' ? 1 : 0,
+       | ^
+  1237 |     rendererPackageName: '@react-three/fiber',
+  1238 |     version: React.version
+  1239 |   });
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./node_modules/@react-three/fiber/dist/react-three-fiber.esm.js
+./components/ui/shader-background.tsx
+./app/page.tsx
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\miguel\Desktop\pagina-main2\.next\fallback-build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\miguel\\Desktop\\pagina-main2\\.next\\fallback-build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\miguel\Desktop\pagina-main2\.next\fallback-build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\miguel\\Desktop\\pagina-main2\\.next\\fallback-build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\miguel\Desktop\pagina-main2\.next\fallback-build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\miguel\\Desktop\\pagina-main2\\.next\\fallback-build-manifest.json'
+}
+ GET / 500 in 18467ms
+ GET / 500 in 230ms
+ ✓ Compiled /favicon.ico in 416ms (1584 modules)
+ GET /favicon.ico 500 in 433ms
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\miguel\Desktop\pagina-main2\.next\fallback-build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\miguel\\Desktop\\pagina-main2\\.next\\fallback-build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\miguel\Desktop\pagina-main2\.next\fallback-build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\miguel\\Desktop\\pagina-main2\\.next\\fallback-build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\miguel\Desktop\pagina-main2\.next\fallback-build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\miguel\\Desktop\\pagina-main2\\.next\\fallback-build-manifest.json'
+}
+ GET / 500 in 707ms
+ GET / 500 in 236ms
+ GET /favicon.ico 500 in 9ms
